@@ -858,10 +858,12 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			if(args.length == 0) return kelliot.reply(from, `Untuk mendownload vidio / foto dari Tiktok\nketik: ${prefix}tiktok [url]`, id)
 			const tturl = body.slice(8);
 			const ttdl = await tt(tturl);
-			await kelliot.sendFileFromUrl(from, ttdl.video, 'video.mp4', 'Judul:'+ttdl.jud+'\nOwner:'+ttdl.own, id)
-			.catch((err) => {
-				kelliot.reply(from, 'Error: '+ err, id);
-			})
+			console.log(ttdl);
+			//await kelliot.sendFileFromUrl(from, ttdl.video, 'video.mp4', 'Judul:'+ttdl.jud+'\nOwner:'+ttdl.own, id)
+			//.catch((err) => {
+			//	kelliot.reply(from, 'Error: '+ err, id);
+			//})
+			break;
         case 'wiki':
             if (args.length == 0) return kelliot.reply(from, `Untuk mencari suatu kata dari wikipedia\nketik: ${prefix}wiki [kata]`, id)
             const wikip = body.slice(6)
