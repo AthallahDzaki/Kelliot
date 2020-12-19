@@ -853,7 +853,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			if(args.length == 0) return kelliot.reply(from, `Untuk mendownload vidio / foto dari instagram\nketik: ${prefix}ig [url]`, id)
 			const igurl = body.slice(4)
 			const igdl = await api.igdl(igurl)
-			await kelliot.sendFileFromUrl(from, igdl.file, '', '', id);
+			await kelliot.sendFileFromUrl(from, igdl.file, '', '', id)
 			.catch((err) => {
 				kelliot.reply(from, 'Error : ' + err, id);
 			})
