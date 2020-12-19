@@ -614,6 +614,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			if (args.length == 0) return kelliot.reply(from, `Untuk mendownload video dari link facebook\nketik: ${prefix}fb [link_fb]`, id)
 			api.fb(args[0])
 			.then(async (res) => {
+				console.log(res);
 				if (res.status == 'error') return kelliot.reply(from, 'Maaf url anda tidak dapat ditemukan', id)
 				await kelliot.sendFileFromUrl(from, res.linkhd, '', 'Nih ngab videonya', id)
 				.catch(async () => {
