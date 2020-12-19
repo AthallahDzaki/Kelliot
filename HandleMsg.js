@@ -302,12 +302,11 @@ module.exports = HandleMsg = async (kelliot, message) => {
                 }
                 kelliot.reply(from, `? *Pertanyaan* : ${tanya.split('.')[0]}\n\n? *Jumlah jawaban* : ${Number(jum)}`, id)
 				await BrainlySearch(tanya.split('.')[0],Number(jum)).then( res => {
-                        if (res.jawaban.fotoJawaban.length == 0) {
-                            kelliot.reply(from, `? *Pertanyaan* : ${res.pertanyaan}\n\n? *Jawaban* : ${res.jawaban.judulJawaban}\n`, id)
-                        } else {
-                            kelliot.reply(from, `? *Pertanyaan* : ${res.pertanyaan}\n\n? *Jawaban* ?: ${res.jawaban.judulJawaban}\n\n? *Link foto jawaban* : ${res.jawaban.fotoJawaban.join('\n')}`, id)
-                        }
-                    }
+					if (res.jawaban.fotoJawaban.length == 0) {
+						kelliot.reply(from, `? *Pertanyaan* : ${res.pertanyaan}\n\n? *Jawaban* : ${res.jawaban.judulJawaban}\n`, id)
+					} else {
+						kelliot.reply(from, `? *Pertanyaan* : ${res.pertanyaan}\n\n? *Jawaban* ?: ${res.jawaban.judulJawaban}\n\n? *Link foto jawaban* : ${res.jawaban.fotoJawaban.join('\n')}`, id)
+					}
                 })
             } else {
                 kelliot.reply(from, 'Usage :\n!brainly [pertanyaan] [.jumlah]\n\nEx : \n!brainly NKRI .2', id)
