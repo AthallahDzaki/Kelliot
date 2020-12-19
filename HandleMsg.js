@@ -26,7 +26,8 @@ const {
     nekopoi,
     api,
 	fb,
-	ig
+	ig,
+	tt
 } = require('./lib')
 
 const { 
@@ -843,8 +844,9 @@ module.exports = HandleMsg = async (kelliot, message) => {
                 kelliot.reply(from, 'Ada yang Error!', id)
             })
             break
+		case 'instagram':
 		case 'ig':
-			if(args.length == 0) return kelliot.reply(from, `Untuk mendownload vidio / foto dari instagram\nketik: ${prefix}ig [url]`, id)
+			if(args.length == 0) return kelliot.reply(from, `Untuk mendownload vidio / foto dari Instagram\nketik: ${prefix}ig [url]`, id)
 			const igurl = body.slice(4)
 			const igdl = await ig(igurl)
 			await kelliot.sendFileFromUrl(from, igdl.file, '', '', id)
@@ -852,6 +854,14 @@ module.exports = HandleMsg = async (kelliot, message) => {
 				kelliot.reply(from, 'Error : ' + err, id);
 			})
 			break;
+		case 'tiktok':
+			if(args.length == 0) return kelliot.reply(from, `Untuk mendownload vidio / foto dari Tiktok\nketik: ${prefix}tiktok [url]`, id)
+			const tturl = body.slice(4);
+			const ttdl = await tt(tturl);
+			await kelliot.sendFileFromUrl(from, ttdl.video, 'video.mp4', 'Judul:'+ttdl.jud+'\nOwner:'+ttdl.own, id)
+			.catch((err) => {
+				kelliot.reply(from, 'Error: '+ err, id);
+			})
         case 'wiki':
             if (args.length == 0) return kelliot.reply(from, `Untuk mencari suatu kata dari wikipedia\nketik: ${prefix}wiki [kata]`, id)
             const wikip = body.slice(6)
