@@ -135,7 +135,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
             .then(() => kelliot.sendText(from, 'Jika kalian ingin request fitur silahkan chat nomor owner!'))
             break
         case 'milf' :
-	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai oleh user premium #donate! [Premium Only]', id)
+	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/age_milf/urls_age_milf.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -145,7 +145,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'bb' :
-	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai oleh user premium #donate! [Premium Only]', id)	 
+	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/body-parts_upper-body_breasts_large/reddit_sub_bigboobs/urls.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -155,7 +155,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'hb' :
-	 if(isGroupMsg) return  kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai oleh user premium #donate! [Premium Only]', id)
+	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/body-parts_upper-body_breasts_large/reddit_sub_hugeboobs/urls.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -165,7 +165,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'mansturbate' :
-	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai oleh user premium #donate! [Premium Only]', id)
+	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/sex_orgasm/reddit_sub_Womenorgasm/urls.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -177,7 +177,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'nude' :
-	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai oleh user premium #donate! [Premium Only]', id)
+	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 var items = ["boobs", "pussy", "4k", "hentai", "anal", "hanal", "hass", "hboobs"];
     	 var gambar = items[Math.floor(Math.random() * items.length)];
   	 const response = await fetch('https://nekobot.xyz/api/image?type='+gambar)
@@ -843,12 +843,21 @@ module.exports = HandleMsg = async (kelliot, message) => {
         case 'stalkig':
             if (args.length == 0) return kelliot.reply(from, `Untuk men-stalk akun instagram seseorang\nketik ${prefix}stalkig [username]\ncontoh: ${prefix}stalkig ini.arga`, id)
             const igstalk = await api.stalkig(args[0])
-	 const igstalkpict = igstalk.pic
+			const igstalkpict = igstalk.pic
             await kelliot.sendFileFromUrl(from, igstalkpict, '', igstalk, id)
             .catch(() => {
                 kelliot.reply(from, 'Ada yang Error!', id)
             })
             break
+		case 'ig':
+			if(args.length == 0) return kelliot.reply(from, `Untuk mendownload vidio / foto dari instagram\nketik: ${prefix}ig [url]`, id)
+			const igurl = body.slice(4)
+			const igdl = await api.igdl(igurl)
+			await kelliot.sendFileFromUrl(from, igdl.file, '', '', id);
+			.catch((err) => {
+				kelliot.reply(from, 'Error : ' + err, id);
+			})
+			break;
         case 'wiki':
             if (args.length == 0) return kelliot.reply(from, `Untuk mencari suatu kata dari wikipedia\nketik: ${prefix}wiki [kata]`, id)
             const wikip = body.slice(6)
