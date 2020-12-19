@@ -24,7 +24,9 @@ const {
     images,
     resep,
     nekopoi,
-    api
+    api,
+	fb,
+	ig
 } = require('./lib')
 
 const { 
@@ -289,11 +291,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
                 await kelliot.reply(from, `Tidak ada gambar! Untuk menggunakan ${prefix}sticker\n\n\nKirim gambar dengan caption\n${prefix}sticker <biasa>\n${prefix}sticker nobg <tanpa background>\n\natau Kirim pesan dengan\n${prefix}sticker <link_gambar>`, id)
             }
             break
-	case 'brainly':
-            if (!isGroupMsg) return kelliot.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
-            
-            
-            
+		case 'brainly':
             if (args.length >= 2){
                 const BrainlySearch = require('./lib/brainly')
                 let tanya = body.slice(9)
@@ -303,15 +301,13 @@ module.exports = HandleMsg = async (kelliot, message) => {
                     tanya
                 }
                 kelliot.reply(from, `? *Pertanyaan* : ${tanya.split('.')[0]}\n\n? *Jumlah jawaban* : ${Number(jum)}`, id)
-                await BrainlySearch(tanya.split('.')[0],Number(jum), function(res){
-                    res.forEach(x=>{
-                        if (x.jawaban.fotoJawaban.length == 0) {
-                            kelliot.reply(from, `? *Pertanyaan* : ${x.pertanyaan}\n\n? *Jawaban* : ${x.jawaban.judulJawaban}\n`, id)
-			    kelliot.sendText(from, 'Selesai ?, donasi kesini ya paypal.me/TheSploit | Pulsa : 085754337101')
+				await BrainlySearch(tanya.split('.')[0],Number(jum)).then( res => {
+                        if (res.jawaban.fotoJawaban.length == 0) {
+                            kelliot.reply(from, `? *Pertanyaan* : ${res.pertanyaan}\n\n? *Jawaban* : ${res.jawaban.judulJawaban}\n`, id)
                         } else {
-                            kelliot.reply(from, `? *Pertanyaan* : ${x.pertanyaan}\n\n? *Jawaban* ?: ${x.jawaban.judulJawaban}\n\n? *Link foto jawaban* : ${x.jawaban.fotoJawaban.join('\n')}`, id)
+                            kelliot.reply(from, `? *Pertanyaan* : ${res.pertanyaan}\n\n? *Jawaban* ?: ${res.jawaban.judulJawaban}\n\n? *Link foto jawaban* : ${res.jawaban.fotoJawaban.join('\n')}`, id)
                         }
-                    })
+                    }
                 })
             } else {
                 kelliot.reply(from, 'Usage :\n!brainly [pertanyaan] [.jumlah]\n\nEx : \n!brainly NKRI .2', id)
@@ -559,8 +555,8 @@ module.exports = HandleMsg = async (kelliot, message) => {
                 kelliot.reply(from, 'Ada yang Error!', id)
             })
             break
-	//Group All User
-	case 'grouplink':
+		//Group All User
+		case 'grouplink':
             if (!isBotGroupAdmins) return kelliot.reply(from, 'Perintah ini hanya bisa di gunakan ketika bot menjadi admin', id)
             if (isGroupMsg) {
                 const inviteLink = await kelliot.getGroupInviteLink(groupId);
@@ -569,8 +565,8 @@ module.exports = HandleMsg = async (kelliot, message) => {
             	kelliot.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
             }
             break
-	case "revoke":
-	if (!isBotGroupAdmins) return kelliot.reply(from, 'Perintah ini hanya bisa di gunakan ketika bot menjadi admin', id)
+		case "revoke":
+		if (!isBotGroupAdmins) return kelliot.reply(from, 'Perintah ini hanya bisa di gunakan ketika bot menjadi admin', id)
                     if (isBotGroupAdmins) {
                         kelliot
                             .revokeGroupInviteLink(from)
@@ -612,13 +608,13 @@ module.exports = HandleMsg = async (kelliot, message) => {
 		case 'fb':
 		case 'facebook':
 			if (args.length == 0) return kelliot.reply(from, `Untuk mendownload video dari link facebook\nketik: ${prefix}fb [link_fb]`, id)
-			api.fb(args[0])
+			fb(args[0])
 			.then(async (res) => {
 				console.log(res);
 				if (res.status == 'error') return kelliot.reply(from, 'Maaf url anda tidak dapat ditemukan', id)
-				await kelliot.sendFileFromUrl(from, res.linkhd, '', 'Nih ngab videonya', id)
+				await kelliot.sendFileFromUrl(from, res.sd, '', 'Nih ngab videonya', id)
 				.catch(async () => {
-					await kelliot.sendFileFromUrl(from, res.linksd, '', 'Nih ngab videonya', id)
+					await kelliot.sendFileFromUrl(from, res.hd, '', 'Nih ngab videonya', id)
 					.catch(() => {
 						kelliot.reply(from, 'Maaf url anda tidak dapat ditemukan', id)
 					})
@@ -852,7 +848,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 		case 'ig':
 			if(args.length == 0) return kelliot.reply(from, `Untuk mendownload vidio / foto dari instagram\nketik: ${prefix}ig [url]`, id)
 			const igurl = body.slice(4)
-			const igdl = await api.igdl(igurl)
+			const igdl = await ig(igurl)
 			await kelliot.sendFileFromUrl(from, igdl.file, '', '', id)
 			.catch((err) => {
 				kelliot.reply(from, 'Error : ' + err, id);
