@@ -136,7 +136,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
             .then(() => kelliot.sendText(from, 'Jika kalian ingin request fitur silahkan chat nomor owner!'))
             break
         case 'milf' :
-	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
+	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/age_milf/urls_age_milf.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -146,7 +146,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'bb' :
-	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
+	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/body-parts_upper-body_breasts_large/reddit_sub_bigboobs/urls.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -156,7 +156,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'hb' :
-	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
+	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/body-parts_upper-body_breasts_large/reddit_sub_hugeboobs/urls.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -166,7 +166,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'mansturbate' :
-	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
+	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 await fetch('https://raw.githubusercontent.com/EBazarov/nsfw_data_source_urls/master/raw_data/sex_orgasm/reddit_sub_Womenorgasm/urls.txt')
 	                       .then(res => res.text())
 			 .then(body => {
@@ -178,7 +178,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
 			  });
 	 break
         case 'nude' :
-	 if(isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
+	 if(isGroupMsg) return kelliot.reply(from, 'Maaf, perintah ini hanya dapat dipakai di private Message! [PM Only]', id)
 	 var items = ["boobs", "pussy", "4k", "hentai", "anal", "hanal", "hass", "hboobs"];
     	 var gambar = items[Math.floor(Math.random() * items.length)];
   	 const response = await fetch('https://nekobot.xyz/api/image?type='+gambar)
