@@ -843,7 +843,7 @@ module.exports = HandleMsg = async (kelliot, message) => {
         case 'stalkig':
             if (args.length == 0) return kelliot.reply(from, `Untuk men-stalk akun instagram seseorang\nketik ${prefix}stalkig [username]\ncontoh: ${prefix}stalkig ini.arga`, id)
             const igstalk = await api.stalkig(args[0])
-			const igstalkpict = igstalk.pic
+			const igstalkpict = await api.stalkigpict(args[0])
             await kelliot.sendFileFromUrl(from, igstalkpict, '', igstalk, id)
             .catch(() => {
                 kelliot.reply(from, 'Ada yang Error!', id)
